@@ -33,6 +33,29 @@ class ParseClient: RestClient  {
         })
     }
     
+    func createStudentLocation(studentLocation: StudentLocation, completionHandler:(Int, [String : AnyObject]?) -> (), errorHandler:(String) -> ()) {
+        
+        let params:[String:AnyObject] = [
+            "uniqueKey": studentLocation.uniqueKey!,
+            "firstName": studentLocation.firstName!,
+            "lastName": studentLocation.lastName!,
+            "mapString": studentLocation.mapString!,
+            "mediaURL": studentLocation.mediaURL!,
+            "latitude": studentLocation.latitude!,
+            "longitude": studentLocation.longitude!]
+
+        post(endPoint:Constants.StudentLocations, param: params,
+            success: {
+                responseCode, data in
+                completionHandler(responseCode, data)
+            },
+            failure:{
+                errorResponse in
+                errorHandler(errorResponse)
+            }
+        )
+    }
+    
     class func sharedInstance() -> ParseClient {
         
         struct Singleton {

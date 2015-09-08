@@ -15,7 +15,7 @@ class StudentLocationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "getStudentLocations")
-        let pinButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "onMarkerDrop:")
+        let pinButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "addLocation:")
         self.navigationItem.rightBarButtonItems = [refreshButton, pinButton]
         getStudentLocations()
         
@@ -45,6 +45,10 @@ class StudentLocationTableViewController: UITableViewController {
             }
         )
 
+    }
+    
+    func addLocation() {
+        performSegueWithIdentifier("showInformationPosting", sender: self)
     }
 
     // MARK: - Table view data source

@@ -38,6 +38,7 @@ class LoginViewController: UIViewController {
                     // serialize and shove the user object into the ns user defaults
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "User")
+                    defaults.synchronize()
                     dispatch_async(dispatch_get_main_queue(), {
                         self.performSegueWithIdentifier("successfulLogin", sender: self)
                     })

@@ -16,7 +16,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "getStudentLocations")
-        let pinButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "onMarkerDrop:")
+        let pinButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "addLocation")
         self.navigationItem.rightBarButtonItems = [refreshButton, pinButton]
         // Do any additional setup after loading the view.
         mapView.delegate = self
@@ -59,6 +59,10 @@ class MapViewController: UIViewController {
                 errorMessage in
             }
         )
+    }
+    
+    func addLocation() {
+        performSegueWithIdentifier("showInformationPosting", sender: self)
     }
 
 }
