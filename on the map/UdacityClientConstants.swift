@@ -12,20 +12,10 @@ extension UdacityClient {
     
     // Constants
     struct Constants {
-        
-        // URLs
         static let BaseURL : String = "http://www.udacity.com/api/"
         static let BaseURLSecure : String = "https://www.udacity.com/api/"
         static let SessionEndpoint : String = "session"
         static let UserDataEndpoint : String = "users/"
         static let SubSetRange: Int = 5
-    }
-    
-    // JSON Body Keys
-    struct JSONBodyKeys {
-        static let header = "\"udacity\":"
-        
-        static let Username = "username"
-        static let Password = "password"
     }
 }

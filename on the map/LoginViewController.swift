@@ -39,7 +39,9 @@ class LoginViewController: UIViewController {
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(user), forKey: "User")
                     defaults.synchronize()
+                    
                     dispatch_async(dispatch_get_main_queue(), {
+                        self.resetFormState()
                         self.performSegueWithIdentifier("successfulLogin", sender: self)
                     })
                 }
@@ -47,9 +49,7 @@ class LoginViewController: UIViewController {
             errorHandler: {
                 errorResponse in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.loginButton.setTitle("Login", forState: UIControlState.Normal)
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.hidden = true
+                    self.resetFormState()
                     self.showLoginAlert(errorResponse)
                 })
             })
@@ -57,6 +57,12 @@ class LoginViewController: UIViewController {
 
     @IBAction func signupButtonTapped(sender: UIButton) {
         UIApplication.sharedApplication().openURL(NSURL(string:"https://www.udacity.com/account/auth#!/signup")!)
+    }
+    
+    func resetFormState() {
+        loginButton.setTitle("Login", forState: UIControlState.Normal)
+        activityIndicator.stopAnimating()
+        activityIndicator.hidden = true
     }
     
     // Display an alert to the user warning of login failure

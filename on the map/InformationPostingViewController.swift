@@ -5,7 +5,7 @@
 //  Created by Ian Gristock on 08/09/2015.
 //  Copyright (c) 2015 Ian Gristock. All rights reserved.
 //
-
+import Foundation
 import UIKit
 import MapKit
 
@@ -26,9 +26,14 @@ class InformationPostingViewController: UIViewController {
     @IBOutlet weak var bottomContainer: UIView!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var findOnMapButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    let blueColor: UIColor = UIColor(red: 80.0/255, green: 138.0/255, blue: 177.0/255, alpha: 1)
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        locationField.delegate = self
+        linkField.delegate = self
         toggleView(Step.One)
     }
 
@@ -43,6 +48,7 @@ class InformationPostingViewController: UIViewController {
             linkField.hidden = true
             mapView.hidden = true
             submitButton.hidden = true
+            
         } else {
             // hide first step
             studyLabel.hidden = true
@@ -53,6 +59,11 @@ class InformationPostingViewController: UIViewController {
             linkField.hidden = false
             mapView.hidden = false
             submitButton.hidden = false
+            //change the colour of the background
+            topContainer.backgroundColor = blueColor
+            bottomContainer.backgroundColor = blueColor
+            linkField.textColor = UIColor.whiteColor()
+            cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         }
     }
     
@@ -74,22 +85,19 @@ class InformationPostingViewController: UIViewController {
         geocoder.geocodeAddressString(locationField.text, completionHandler: {(placemarks:[AnyObject]!, error:NSError!) in
             SwiftSpinner.hide()
             sender.enabled = true
-            if error != nil || placemarks == nil || placemarks.count == 0 {
-                let message = "Could not geocode the String."
-                var alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+            if error != nil || placemarks == nil {
+                let message = "Could not find address."
+                self.showAlert(message);
             }
             else {
                 self.toggleView(Step.Two)
                 self.placemark = placemarks.first as! CLPlacemark
-                let span = MKCoordinateSpan(latitudeDelta: 0.2,longitudeDelta: 0.2)
+                let span = MKCoordinateSpan(latitudeDelta: 0.3,longitudeDelta: 0.3)
                 let region = MKCoordinateRegion(center: self.placemark.location.coordinate, span: span)
                 self.mapView.setRegion(region, animated: true)
-                self.mapView.userInteractionEnabled = false
-                var selectedLocation = MKPointAnnotation()
-                selectedLocation.coordinate = self.placemark.location.coordinate
-                self.mapView.addAnnotation(selectedLocation)
+                var location = MKPointAnnotation()
+                location.coordinate = self.placemark.location.coordinate
+                self.mapView.addAnnotation(location)
 
             }
         })
@@ -116,16 +124,47 @@ class InformationPostingViewController: UIViewController {
         ParseClient.sharedInstance().createStudentLocation(studentLocation,
             completionHandler: {
                 responseCode, data in
-                println(responseCode, data)
                 SwiftSpinner.hide()
                 self.dismissViewControllerAnimated(true, completion: nil);
             },
             errorHandler:{
                 errorResponse in
                 SwiftSpinner.hide()
-                var alert = UIAlertController(title: "", message: errorResponse, preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.showAlert(errorResponse);
             })
+    }
+    
+    // Display an alert to the user warning of login failure
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Error :", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default,handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+}
+
+extension InformationPostingViewController: UITextFieldDelegate {
+    
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true;
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if locationField.isFirstResponder() || linkField.isFirstResponder() {
+            self.view.frame.origin.y = -getKeyboardHeight(notification)        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if locationField.isFirstResponder() || linkField.isFirstResponder(){
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.CGRectValue().height
     }
 }

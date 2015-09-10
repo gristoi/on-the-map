@@ -24,8 +24,8 @@ class UdacityClient : RestClient {
        
         let sessionData : [String:AnyObject] = [
             "udacity" :[
-            JSONBodyKeys.Username: username as String,
-            JSONBodyKeys.Password: password as String]
+                "username": username as String,
+                "password": password as String]
         ]
         
         post(endPoint: Constants.SessionEndpoint, param: sessionData, range: 5,
@@ -44,6 +44,7 @@ class UdacityClient : RestClient {
                 errorHandler(errorMessage)
         })
     }
+    
     
     func getUserData(key : String, completionHandler:(Int, [String : AnyObject]?) -> () = {_,_ in}, errorHandler:(String) -> () = {_ in}) {
         get(endPoint:Constants.UserDataEndpoint + key, range: 5,

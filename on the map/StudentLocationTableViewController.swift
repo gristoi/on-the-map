@@ -47,6 +47,12 @@ class StudentLocationTableViewController: UITableViewController {
 
     }
     
+    
+    @IBAction func logout(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+
+    }
+    
     func addLocation() {
         performSegueWithIdentifier("showInformationPosting", sender: self)
     }
@@ -71,7 +77,7 @@ class StudentLocationTableViewController: UITableViewController {
 
         cell.textLabel?.text = "\(studentLocations[indexPath.row].fullName!)"
         cell.detailTextLabel?.text = "\(studentLocations[indexPath.row].mapString!)"
-
+        cell.imageView?.image = UIImage(named: "pin")
         return cell
     }
 

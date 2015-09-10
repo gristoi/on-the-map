@@ -20,7 +20,12 @@ class MapViewController: UIViewController {
         self.navigationItem.rightBarButtonItems = [refreshButton, pinButton]
         // Do any additional setup after loading the view.
         mapView.delegate = self
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         getStudentLocations()
+        super.viewWillAppear(animated)
     }
     
     func getStudentLocations() {
@@ -33,9 +38,9 @@ class MapViewController: UIViewController {
                     
                     for student in studentLocations  {
                         
-                        let lat = CLLocationDegrees(student.latitude as Double!)
-                        let long = CLLocationDegrees(student.longitude as Double!)
-                        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                        let latitude = CLLocationDegrees(student.latitude as Double!)
+                        let longitude = CLLocationDegrees(student.longitude as Double!)
+                        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                         
                         var annotation = MKPointAnnotation()
                         annotation.coordinate = coordinate
@@ -44,8 +49,6 @@ class MapViewController: UIViewController {
                         
                         annotations.append(annotation)
                     }
-                    
-                    // Add the annotations to the map, need to be on the main thread to appear directly
                     dispatch_async(dispatch_get_main_queue(),{
                         SwiftSpinner.hide()
                         self.mapView.removeAnnotations(self.mapView.annotations)
@@ -60,6 +63,12 @@ class MapViewController: UIViewController {
             }
         )
     }
+    
+   
+    @IBAction func logout(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     func addLocation() {
         performSegueWithIdentifier("showInformationPosting", sender: self)
