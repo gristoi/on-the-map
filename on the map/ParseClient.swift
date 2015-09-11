@@ -26,8 +26,13 @@ class ParseClient: RestClient  {
         get(endPoint: Constants.StudentLocations, param: nil,
             success:{
                 responseCode, data in
-                completionHandler(responseCode, data)
-            }, failure: {
+                if let error = data!["error"] as? String{
+                    errorHandler(error)
+                } else {
+                    completionHandler(responseCode, data)
+                }
+            },
+            failure: {
                 errorString in
                 errorHandler(errorString)
         })
@@ -47,7 +52,11 @@ class ParseClient: RestClient  {
         post(endPoint:Constants.StudentLocations, param: params,
             success: {
                 responseCode, data in
-                completionHandler(responseCode, data)
+                if let error = data!["error"] as? String{
+                    errorHandler(error)
+                } else {
+                    completionHandler(responseCode, data)
+                }
             },
             failure:{
                 errorResponse in
@@ -74,6 +83,6 @@ extension ParseClient {
         static let BaseURL : String = "https://api.parse.com/1/"
         static let ParseAppId: String = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let ParseApiKey: String = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
-        static let StudentLocations: String = "classes/StudentLocation?limit=100"
+        static let StudentLocations: String = "classes/StudentLocation?limit=100&order=-updatedAt"
     }
 }
