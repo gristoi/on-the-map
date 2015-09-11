@@ -15,7 +15,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "getStudentLocations")
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudents")
         let pinButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "addLocation")
         self.navigationItem.rightBarButtonItems = [refreshButton, pinButton]
         // Do any additional setup after loading the view.
@@ -24,44 +24,64 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        getStudentLocations()
+        loadMap()
         super.viewWillAppear(animated)
     }
     
-    func getStudentLocations() {
+    func loadMap() {
+        let studentRepo = StudentLocationRepository.sharedInstance()
         SwiftSpinner.show("Fetching Student Locations ...")
-        StudentLocationReposiotry.sharedInstance().getStudentLocations(
+        if studentRepo.dataFetched {
+            self.reloadPins(studentRepo.studentLocations)
+        } else {
+            self.refreshStudents()
+        }
+
+    }
+    
+    func refreshStudents() {
+        SwiftSpinner.show("Fetching Student Locations ...")
+        StudentLocationRepository.sharedInstance().getStudentLocations(
             {
                 responseCode, studentLocations in
-                var annotations = [MKPointAnnotation]()
-                if let studentLocations = studentLocations as [StudentLocation]! {
-                    
-                    for student in studentLocations  {
-                        
-                        let latitude = CLLocationDegrees(student.latitude as Double!)
-                        let longitude = CLLocationDegrees(student.longitude as Double!)
-                        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                        
-                        var annotation = MKPointAnnotation()
-                        annotation.coordinate = coordinate
-                        annotation.title = student.fullName
-                        annotation.subtitle = student.mediaURL
-                        
-                        annotations.append(annotation)
-                    }
-                    dispatch_async(dispatch_get_main_queue(),{
-                        SwiftSpinner.hide()
-                        self.mapView.removeAnnotations(self.mapView.annotations)
-                        self.mapView.addAnnotations(annotations)
-                    });
-
-                }
-
-                            },
+                self.reloadPins(studentLocations!)
+                
+            },
             errorHandler: {
                 errorMessage in
+                SwiftSpinner.hide()
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(Util.showAlert(errorMessage), animated: true, completion: nil);
+                })
             }
         )
+    }
+    
+    func reloadPins(studentLocations: [StudentLocation]) {
+        
+        var annotations = [MKPointAnnotation]()
+        if let studentLocations = studentLocations as [StudentLocation]! {
+            
+            for student in studentLocations  {
+                
+                let latitude = CLLocationDegrees(student.latitude as Double!)
+                let longitude = CLLocationDegrees(student.longitude as Double!)
+                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                
+                var annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = student.fullName
+                annotation.subtitle = student.mediaURL
+                
+                annotations.append(annotation)
+            }
+            dispatch_async(dispatch_get_main_queue(),{
+                SwiftSpinner.hide()
+                self.mapView.removeAnnotations(self.mapView.annotations)
+                self.mapView.addAnnotations(annotations)
+            });
+            
+        }
     }
     
    

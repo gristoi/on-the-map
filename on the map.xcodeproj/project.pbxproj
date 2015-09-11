@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		440B22301B9F0FF900A2654E /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440B222F1B9F0FF900A2654E /* InformationPostingViewController.swift */; };
 		44734EFF1B9DBA53002B9800 /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44734EFE1B9DBA53002B9800 /* SwiftSpinner.swift */; };
+		449C68011BA300610049A55A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449C68001BA300610049A55A /* Util.swift */; };
 		44E2B8841B95CD0E002332CC /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E2B8831B95CD0E002332CC /* RestClient.swift */; };
 		44E2B8861B95D1F3002332CC /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E2B8851B95D1F3002332CC /* ParseClient.swift */; };
 		44F539891B9180F200EC2859 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F539881B9180F200EC2859 /* AppDelegate.swift */; };
@@ -22,7 +23,7 @@
 		44FAE6C31B9AF2A9002BAC28 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FAE6C21B9AF2A9002BAC28 /* User.swift */; };
 		44FAE6C51B9B315D002BAC28 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FAE6C41B9B315D002BAC28 /* MapViewController.swift */; };
 		44FAE6CC1B9C18E8002BAC28 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FAE6CB1B9C18E8002BAC28 /* UserRepository.swift */; };
-		44FAE6CE1B9C2760002BAC28 /* StudentLocationReposiotry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FAE6CD1B9C2760002BAC28 /* StudentLocationReposiotry.swift */; };
+		44FAE6CE1B9C2760002BAC28 /* StudentLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FAE6CD1B9C2760002BAC28 /* StudentLocationRepository.swift */; };
 		44FAE6D01B9C2912002BAC28 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FAE6CF1B9C2912002BAC28 /* StudentLocation.swift */; };
 		44FAE6D21B9CBB0D002BAC28 /* StudentLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FAE6D11B9CBB0D002BAC28 /* StudentLocationTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		440B222F1B9F0FF900A2654E /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 		44734EFE1B9DBA53002B9800 /* SwiftSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
+		449C68001BA300610049A55A /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		44E2B8831B95CD0E002332CC /* RestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		44E2B8851B95D1F3002332CC /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		44F539831B9180F200EC2859 /* on the map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "on the map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,7 +59,7 @@
 		44FAE6C21B9AF2A9002BAC28 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		44FAE6C41B9B315D002BAC28 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		44FAE6CB1B9C18E8002BAC28 /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		44FAE6CD1B9C2760002BAC28 /* StudentLocationReposiotry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationReposiotry.swift; sourceTree = "<group>"; };
+		44FAE6CD1B9C2760002BAC28 /* StudentLocationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationRepository.swift; sourceTree = "<group>"; };
 		44FAE6CF1B9C2912002BAC28 /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		44FAE6D11B9CBB0D002BAC28 /* StudentLocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +138,7 @@
 				44F5398F1B9180F200EC2859 /* Images.xcassets */,
 				44F539911B9180F200EC2859 /* LaunchScreen.xib */,
 				44F539861B9180F200EC2859 /* Supporting Files */,
+				449C68001BA300610049A55A /* Util.swift */,
 			);
 			path = "on the map";
 			sourceTree = "<group>";
@@ -215,7 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				44FAE6CB1B9C18E8002BAC28 /* UserRepository.swift */,
-				44FAE6CD1B9C2760002BAC28 /* StudentLocationReposiotry.swift */,
+				44FAE6CD1B9C2760002BAC28 /* StudentLocationRepository.swift */,
 			);
 			name = Repositories;
 			sourceTree = "<group>";
@@ -327,8 +330,9 @@
 				44E2B8861B95D1F3002332CC /* ParseClient.swift in Sources */,
 				440B22301B9F0FF900A2654E /* InformationPostingViewController.swift in Sources */,
 				44F5398B1B9180F200EC2859 /* LoginViewController.swift in Sources */,
+				449C68011BA300610049A55A /* Util.swift in Sources */,
 				44F539891B9180F200EC2859 /* AppDelegate.swift in Sources */,
-				44FAE6CE1B9C2760002BAC28 /* StudentLocationReposiotry.swift in Sources */,
+				44FAE6CE1B9C2760002BAC28 /* StudentLocationRepository.swift in Sources */,
 				44FAE6C51B9B315D002BAC28 /* MapViewController.swift in Sources */,
 				44FAE6C31B9AF2A9002BAC28 /* User.swift in Sources */,
 				44F539B01B92381600EC2859 /* UdacityClientConstants.swift in Sources */,

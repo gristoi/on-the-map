@@ -8,20 +8,24 @@
 
 import Foundation
 
-class StudentLocationReposiotry {
+class StudentLocationRepository {
+    
+    var studentLocations: [StudentLocation] = [StudentLocation]()
+    var dataFetched: Bool = false
+    
     
     func getStudentLocations(completionHandler:(Int, [StudentLocation]?) -> (), errorHandler:(String) -> ()) {
         ParseClient.sharedInstance().getStudentLocations(
             {
                 code, data in
-                var studentLocations:[StudentLocation] = [StudentLocation]()
                 if let results = data!["results"] as? [AnyObject] {
                     for result in results {
                         var student = StudentLocation(dictionary: result as! NSDictionary)
-                        studentLocations.append(student)
+                        self.studentLocations.append(student)                        
                     }
                 }
-                completionHandler(code, studentLocations)
+                self.dataFetched = true
+                completionHandler(code, self.studentLocations)
             },
             errorHandler:{
                 errorResponse in
@@ -30,10 +34,10 @@ class StudentLocationReposiotry {
         )
     }
     
-    class func sharedInstance() -> StudentLocationReposiotry {
+    class func sharedInstance() -> StudentLocationRepository {
         
         struct Singleton {
-            static var sharedInstance = StudentLocationReposiotry()
+            static var sharedInstance = StudentLocationRepository()
         }
         
         return Singleton.sharedInstance

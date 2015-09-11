@@ -18,8 +18,7 @@ class UdacityClient : RestClient {
     func startUserSession(username: String, password: String,  completionHandler:(Int, [String : AnyObject]?) -> () = {_,_ in}, errorHandler:(String) -> () = {_ in}) {
         
         if username.isEmpty || password.isEmpty {
-            NSNotificationCenter.defaultCenter().postNotificationName(UdacityClient.loginFailure, object: nil, userInfo:["error" : "Please supply username and password"])
-            return
+           return errorHandler("You must supply both username and password")
         }
        
         let sessionData : [String:AnyObject] = [

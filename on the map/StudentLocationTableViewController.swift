@@ -14,7 +14,7 @@ class StudentLocationTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "getStudentLocations")
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudents")
         let pinButton = UIBarButtonItem(image: UIImage(named: "pin"), style: .Plain, target: self, action: "addLocation:")
         self.navigationItem.rightBarButtonItems = [refreshButton, pinButton]
         getStudentLocations()
@@ -23,30 +23,37 @@ class StudentLocationTableViewController: UITableViewController {
     
     func getStudentLocations() {
         SwiftSpinner.show("Fetching Student Locations ...")
-        StudentLocationReposiotry.sharedInstance().getStudentLocations(
+        let studentRepo = StudentLocationRepository.sharedInstance()
+        if studentRepo.dataFetched {
+            self.studentLocations = studentRepo.studentLocations
+            dispatch_async(dispatch_get_main_queue(),{
+                SwiftSpinner.hide()
+                self.tableView.reloadData()
+            });
+        } else {
+            self.refreshStudents()
+        }
+    }
+    
+    func refreshStudents() {
+        SwiftSpinner.show("Fetching Student Locations ...")
+        StudentLocationRepository.sharedInstance().getStudentLocations(
             {
                 responseCode, studentLocations in
-                
-                if let studentLocations = studentLocations as [StudentLocation]! {
-                    
-                    self.studentLocations = studentLocations
-                    
-                    // Add the annotations to the map, need to be on the main thread to appear directly
-                    dispatch_async(dispatch_get_main_queue(),{
-                        SwiftSpinner.hide()
-                        self.tableView.reloadData()
-                    });
-                    
-                }
+                self.studentLocations = studentLocations!
+                self.tableView.reloadData()
+                SwiftSpinner.hide()
                 
             },
             errorHandler: {
                 errorMessage in
+                SwiftSpinner.hide()
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(Util.showAlert(errorMessage), animated: true, completion: nil);
+                })
             }
         )
-
     }
-    
     
     @IBAction func logout(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)

@@ -731,6 +731,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomContainer" destination="THn-Jc-o4M" id="dhQ-Dj-Si3"/>
+                        <outlet property="cancelButton" destination="1Rp-i2-dC2" id="FE5-Rk-6lr"/>
                         <outlet property="findOnMapButton" destination="IYe-eZ-kEK" id="nFe-QZ-bX1"/>
                         <outlet property="linkField" destination="Ebt-Ss-3sv" id="2vi-uj-uRq"/>
                         <outlet property="locationField" destination="1gR-hs-tpF" id="uVy-bR-U0A"/>

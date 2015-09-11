@@ -87,7 +87,7 @@ class InformationPostingViewController: UIViewController {
             sender.enabled = true
             if error != nil || placemarks == nil {
                 let message = "Could not find address."
-                self.showAlert(message);
+                self.presentViewController(Util.showAlert(message), animated: true, completion: nil);
             }
             else {
                 self.toggleView(Step.Two)
@@ -130,16 +130,13 @@ class InformationPostingViewController: UIViewController {
             errorHandler:{
                 errorResponse in
                 SwiftSpinner.hide()
-                self.showAlert(errorResponse);
+                dispatch_async(dispatch_get_main_queue(), {
+                self.presentViewController(Util.showAlert(errorResponse), animated: true, completion: nil);
+                })
             })
     }
     
-    // Display an alert to the user warning of login failure
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Error :", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default,handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
+   
     
 }
 

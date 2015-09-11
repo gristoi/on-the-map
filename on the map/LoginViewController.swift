@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
                 errorResponse in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.resetFormState()
-                    self.showLoginAlert(errorResponse)
+                    self.presentViewController(Util.showAlert(errorResponse), animated: true, completion: nil);
                 })
             })
     }
@@ -63,13 +63,6 @@ class LoginViewController: UIViewController {
         loginButton.setTitle("Login", forState: UIControlState.Normal)
         activityIndicator.stopAnimating()
         activityIndicator.hidden = true
-    }
-    
-    // Display an alert to the user warning of login failure
-    func showLoginAlert(message: String) {
-        let alertController = UIAlertController(title: "Error Logging In", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default,handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }
 

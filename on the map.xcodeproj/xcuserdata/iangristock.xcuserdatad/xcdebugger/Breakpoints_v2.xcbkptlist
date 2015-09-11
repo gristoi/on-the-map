@@ -51,5 +51,53 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "on the map/StudentLocationRepository.swift"
+            timestampString = "463668792.569298"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "getStudentLocations(_:errorHandler:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "on_the_map.StudentLocationRepository.(getStudentLocations (on_the_map.StudentLocationRepository) -&gt; ((Swift.Int, Swift.Optional&lt;Swift.Array&lt;on_the_map.StudentLocation&gt;&gt;) -&gt; (), errorHandler : (Swift.String) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "on the map"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/iangristock/udacity/on%20the%20map/on%20the%20map/StudentLocationRepository.swift"
+                  timestampString = "463667946.172515"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "2729">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "on_the_map.StudentLocationRepository.(getStudentLocations (on_the_map.StudentLocationRepository) -&gt; ((Swift.Int, Swift.Optional&lt;Swift.Array&lt;on_the_map.StudentLocation&gt;&gt;) -&gt; (), errorHandler : (Swift.String) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "on the map"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/iangristock/udacity/on%20the%20map/on%20the%20map/StudentLocationRepository.swift"
+                  timestampString = "463667946.198607"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "2738">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
